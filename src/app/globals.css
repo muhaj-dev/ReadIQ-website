@@ -1,26 +1,333 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
+@custom-variant dark (&:is(.dark *));
+
+/* ── readIQ tokens (generated from the mobile app's constants/theme.ts) ──────
+   Use them as Tailwind colours with the rq- prefix: bg-rq-surface,
+   text-rq-on-surface-variant, border-rq-outline-variant/20 … */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --rq-surface: #f9f9ff;
+  --rq-surface-lowest: #ffffff;
+  --rq-surface-low: #f0f3ff;
+  --rq-surface-container: #e7eeff;
+  --rq-surface-variant: #d8e3fb;
+  --rq-on-surface: #111c2d;
+  --rq-on-surface-variant: #464652;
+  --rq-outline: #777683;
+  --rq-outline-variant: #c7c5d4;
+  --rq-primary: #15157d;
+  --rq-primary-deep: #2e3192;
+  --rq-primary-container: #2e3192;
+  --rq-on-primary: #ffffff;
+  --rq-secondary: #4648d4;
+  --rq-secondary-container: #6063ee;
+  --rq-secondary-fixed: #e1e0ff;
+  --rq-fab: #4648d4;
+  --rq-error: #ba1a1a;
+  --rq-error-container: #ffdad6;
+  --rq-on-error-container: #93000a;
+  --rq-flame: #f97316;
+  --rq-on-primary-container: #9da1ff;
+  --rq-method-paste: #2563eb;
+  --rq-method-paste-well: #eff6ff;
+  --rq-method-upload: #16a34a;
+  --rq-method-upload-well: #f0fdf4;
+  --rq-method-scan: #d97706;
+  --rq-method-scan-well: #fffbeb;
+  --rq-method-record: #9333ea;
+  --rq-method-record-well: #faf5ff;
+  --rq-surface-container-high: #dee8ff;
+  --rq-note-green: #1e8e3e;
+  --rq-note-green-well: #e6f4ea;
+  --rq-note-amber: #f9ab00;
+  --rq-note-amber-well: #fef7e0;
+  --rq-note-red: #d93025;
+  --rq-note-red-well: #fce8e6;
+  --rq-quiz-correct: #22c55e;
+  --rq-quiz-correct-bg: #f0fdf4;
+  --rq-quiz-correct-well: #bbf7d0;
+  --rq-quiz-correct-ink: #166534;
+  --rq-quiz-correct-text: #14532d;
+  --rq-quiz-check: #16a34a;
+  --rq-quiz-sparkle: #eab308;
+  --rq-due-soon: #ea580c;
+  --rq-topic-green-bg: #f0fdf4;
+  --rq-topic-green-ink: #166534;
+  --rq-topic-green-border: #dcfce7;
+  --rq-topic-red-bg: #fef2f2;
+  --rq-topic-red-ink: #991b1b;
+  --rq-topic-red-border: #fee2e2;
+  --rq-topic-amber-bg: #fffbeb;
+  --rq-topic-amber-ink: #92400e;
+  --rq-topic-amber-border: #fef3c7;
+  --rq-topic-blue-bg: #eff6ff;
+  --rq-topic-blue-ink: #1e40af;
+  --rq-topic-blue-border: #dbeafe;
+  --rq-profile-top: #15157d;
+  --rq-profile-bottom: #2e3192;
+  --rq-on-primary-soft: #c0c1ff;
+  --rq-menu-green: #16a34a;
+  --rq-menu-green-well: #dcfce7;
+  --rq-menu-blue: #2563eb;
+  --rq-menu-blue-well: #dbeafe;
+  --rq-menu-orange: #ea580c;
+  --rq-menu-orange-well: #ffedd5;
+  --rq-menu-slate: #475569;
+  --rq-menu-slate-well: #f1f5f9;
+  --rq-menu-purple: #9333ea;
+  --rq-menu-purple-well: #f3e8ff;
+}
+
+.dark {
+  --rq-surface: #12121f;
+  --rq-surface-lowest: #0d0d17;
+  --rq-surface-low: #1a1a28;
+  --rq-surface-container: #1e1e2e;
+  --rq-surface-variant: #2b2b3d;
+  --rq-on-surface: #e4e1f0;
+  --rq-on-surface-variant: #c6c4d6;
+  --rq-outline: #91909f;
+  --rq-outline-variant: #45455a;
+  --rq-primary: #c0c1ff;
+  --rq-primary-deep: #9da1ff;
+  --rq-primary-container: #373a9b;
+  --rq-on-primary: #ffffff;
+  --rq-secondary: #bfc0ff;
+  --rq-secondary-container: #4648d4;
+  --rq-secondary-fixed: #e1e0ff;
+  --rq-fab: #5a5cf0;
+  --rq-error: #ffb4ab;
+  --rq-error-container: #93000a;
+  --rq-on-error-container: #ffdad6;
+  --rq-flame: #fb923c;
+  --rq-on-primary-container: #e1e0ff;
+  --rq-method-paste: #60a5fa;
+  --rq-method-paste-well: #172554;
+  --rq-method-upload: #4ade80;
+  --rq-method-upload-well: #052e16;
+  --rq-method-scan: #fbbf24;
+  --rq-method-scan-well: #451a03;
+  --rq-method-record: #c084fc;
+  --rq-method-record-well: #3b0764;
+  --rq-surface-container-high: #252534;
+  --rq-note-green: #4ade80;
+  --rq-note-green-well: #052e16;
+  --rq-note-amber: #fbbf24;
+  --rq-note-amber-well: #451a03;
+  --rq-note-red: #f87171;
+  --rq-note-red-well: #450a0a;
+  --rq-quiz-correct: #4ade80;
+  --rq-quiz-correct-bg: #052e16;
+  --rq-quiz-correct-well: #14532d;
+  --rq-quiz-correct-ink: #bbf7d0;
+  --rq-quiz-correct-text: #dcfce7;
+  --rq-quiz-check: #4ade80;
+  --rq-quiz-sparkle: #facc15;
+  --rq-due-soon: #fb923c;
+  --rq-topic-green-bg: #052e16;
+  --rq-topic-green-ink: #86efac;
+  --rq-topic-green-border: #14532d;
+  --rq-topic-red-bg: #450a0a;
+  --rq-topic-red-ink: #fca5a5;
+  --rq-topic-red-border: #7f1d1d;
+  --rq-topic-amber-bg: #451a03;
+  --rq-topic-amber-ink: #fcd34d;
+  --rq-topic-amber-border: #78350f;
+  --rq-topic-blue-bg: #172554;
+  --rq-topic-blue-ink: #93c5fd;
+  --rq-topic-blue-border: #1e3a8a;
+  --rq-profile-top: #15157d;
+  --rq-profile-bottom: #2e3192;
+  --rq-on-primary-soft: #c0c1ff;
+  --rq-menu-green: #4ade80;
+  --rq-menu-green-well: #052e16;
+  --rq-menu-blue: #60a5fa;
+  --rq-menu-blue-well: #172554;
+  --rq-menu-orange: #fb923c;
+  --rq-menu-orange-well: #431407;
+  --rq-menu-slate: #94a3b8;
+  --rq-menu-slate-well: #1e293b;
+  --rq-menu-purple: #c084fc;
+  --rq-menu-purple-well: #3b0764;
 }
 
 @theme inline {
+  --color-rq-surface: var(--rq-surface);
+  --color-rq-surface-lowest: var(--rq-surface-lowest);
+  --color-rq-surface-low: var(--rq-surface-low);
+  --color-rq-surface-container: var(--rq-surface-container);
+  --color-rq-surface-variant: var(--rq-surface-variant);
+  --color-rq-on-surface: var(--rq-on-surface);
+  --color-rq-on-surface-variant: var(--rq-on-surface-variant);
+  --color-rq-outline: var(--rq-outline);
+  --color-rq-outline-variant: var(--rq-outline-variant);
+  --color-rq-primary: var(--rq-primary);
+  --color-rq-primary-deep: var(--rq-primary-deep);
+  --color-rq-primary-container: var(--rq-primary-container);
+  --color-rq-on-primary: var(--rq-on-primary);
+  --color-rq-secondary: var(--rq-secondary);
+  --color-rq-secondary-container: var(--rq-secondary-container);
+  --color-rq-secondary-fixed: var(--rq-secondary-fixed);
+  --color-rq-fab: var(--rq-fab);
+  --color-rq-error: var(--rq-error);
+  --color-rq-error-container: var(--rq-error-container);
+  --color-rq-on-error-container: var(--rq-on-error-container);
+  --color-rq-flame: var(--rq-flame);
+  --color-rq-on-primary-container: var(--rq-on-primary-container);
+  --color-rq-method-paste: var(--rq-method-paste);
+  --color-rq-method-paste-well: var(--rq-method-paste-well);
+  --color-rq-method-upload: var(--rq-method-upload);
+  --color-rq-method-upload-well: var(--rq-method-upload-well);
+  --color-rq-method-scan: var(--rq-method-scan);
+  --color-rq-method-scan-well: var(--rq-method-scan-well);
+  --color-rq-method-record: var(--rq-method-record);
+  --color-rq-method-record-well: var(--rq-method-record-well);
+  --color-rq-surface-container-high: var(--rq-surface-container-high);
+  --color-rq-note-green: var(--rq-note-green);
+  --color-rq-note-green-well: var(--rq-note-green-well);
+  --color-rq-note-amber: var(--rq-note-amber);
+  --color-rq-note-amber-well: var(--rq-note-amber-well);
+  --color-rq-note-red: var(--rq-note-red);
+  --color-rq-note-red-well: var(--rq-note-red-well);
+  --color-rq-quiz-correct: var(--rq-quiz-correct);
+  --color-rq-quiz-correct-bg: var(--rq-quiz-correct-bg);
+  --color-rq-quiz-correct-well: var(--rq-quiz-correct-well);
+  --color-rq-quiz-correct-ink: var(--rq-quiz-correct-ink);
+  --color-rq-quiz-correct-text: var(--rq-quiz-correct-text);
+  --color-rq-quiz-check: var(--rq-quiz-check);
+  --color-rq-quiz-sparkle: var(--rq-quiz-sparkle);
+  --color-rq-due-soon: var(--rq-due-soon);
+  --color-rq-topic-green-bg: var(--rq-topic-green-bg);
+  --color-rq-topic-green-ink: var(--rq-topic-green-ink);
+  --color-rq-topic-green-border: var(--rq-topic-green-border);
+  --color-rq-topic-red-bg: var(--rq-topic-red-bg);
+  --color-rq-topic-red-ink: var(--rq-topic-red-ink);
+  --color-rq-topic-red-border: var(--rq-topic-red-border);
+  --color-rq-topic-amber-bg: var(--rq-topic-amber-bg);
+  --color-rq-topic-amber-ink: var(--rq-topic-amber-ink);
+  --color-rq-topic-amber-border: var(--rq-topic-amber-border);
+  --color-rq-topic-blue-bg: var(--rq-topic-blue-bg);
+  --color-rq-topic-blue-ink: var(--rq-topic-blue-ink);
+  --color-rq-topic-blue-border: var(--rq-topic-blue-border);
+  --color-rq-profile-top: var(--rq-profile-top);
+  --color-rq-profile-bottom: var(--rq-profile-bottom);
+  --color-rq-on-primary-soft: var(--rq-on-primary-soft);
+  --color-rq-menu-green: var(--rq-menu-green);
+  --color-rq-menu-green-well: var(--rq-menu-green-well);
+  --color-rq-menu-blue: var(--rq-menu-blue);
+  --color-rq-menu-blue-well: var(--rq-menu-blue-well);
+  --color-rq-menu-orange: var(--rq-menu-orange);
+  --color-rq-menu-orange-well: var(--rq-menu-orange-well);
+  --color-rq-menu-slate: var(--rq-menu-slate);
+  --color-rq-menu-slate-well: var(--rq-menu-slate-well);
+  --color-rq-menu-purple: var(--rq-menu-purple);
+  --color-rq-menu-purple-well: var(--rq-menu-purple-well);
+  --font-sans: var(--font-hanken), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* AGENTS.md shape scale */
+  --radius-card: 16px;
+  --radius-inner: 12px;
+  --radius-btn: 12px;
+  --radius-pill: 999px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* shadcn/ui semantic colours, mapped onto the readIQ palette so every shadcn
+   component (Button, Dialog, Sheet …) already looks like readIQ. */
+:root {
+  --background: var(--rq-surface);
+  --foreground: var(--rq-on-surface);
+  --card: var(--rq-surface-lowest);
+  --card-foreground: var(--rq-on-surface);
+  --popover: var(--rq-surface-lowest);
+  --popover-foreground: var(--rq-on-surface);
+  --primary: var(--rq-fab);
+  --primary-foreground: var(--rq-on-primary);
+  --secondary: var(--rq-surface-container);
+  --secondary-foreground: var(--rq-primary);
+  --muted: var(--rq-surface-low);
+  --muted-foreground: var(--rq-on-surface-variant);
+  --accent: var(--rq-surface-container);
+  --accent-foreground: var(--rq-primary);
+  --destructive: var(--rq-error);
+  --border: color-mix(in oklab, var(--rq-outline-variant) 45%, transparent);
+  --input: color-mix(in oklab, var(--rq-outline-variant) 70%, transparent);
+  --ring: var(--rq-secondary-container);
+  --chart-1: var(--rq-fab);
+  --chart-2: var(--rq-secondary-container);
+  --chart-3: var(--rq-quiz-correct);
+  --chart-4: var(--rq-due-soon);
+  --chart-5: var(--rq-error);
+  --radius: 0.75rem;
+  --sidebar: var(--rq-surface-lowest);
+  --sidebar-foreground: var(--rq-on-surface);
+  --sidebar-primary: var(--rq-fab);
+  --sidebar-primary-foreground: var(--rq-on-primary);
+  --sidebar-accent: var(--rq-surface-container);
+  --sidebar-accent-foreground: var(--rq-primary);
+  --sidebar-border: color-mix(in oklab, var(--rq-outline-variant) 35%, transparent);
+  --sidebar-ring: var(--rq-secondary-container);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  h1, h2, h3, h4 {
+    @apply font-heading;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Soft indigo card shadow used across the app (AGENTS.md: one low-opacity drop). */
+@utility shadow-soft {
+  box-shadow: 0 4px 20px -4px color-mix(in oklab, var(--rq-primary-container) 14%, transparent);
+}
+.dark .shadow-soft,
+.dark.shadow-soft {
+  box-shadow: 0 4px 20px -4px rgb(0 0 0 / 0.45);
 }
